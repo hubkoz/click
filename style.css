@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Rowdies&family=Ubuntu&display=swap');
+
+/* || RESET */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* || VARIABLES */
+
+:root {
+    /*FONT*/
+    --FS: 1.5rem;
+    --FS-SMALL: 0.5rem;
+    --FS-LARGE: 2rem;
+    --FS-VERY-LARGE: 3rem;
+    --FF-CLICK: 'Rowdies', cursive;
+    --FF-TEXT: 'Ubuntu', sans-serif;
+
+    /*COLOR*/
+    --FONT-COLOR: #B4F5F0;
+    --FONT-COLOR-ADDITIONAL: #2CEEF0;
+    --BG-COLOR-DARK: #041F60;
+    --BG-COLOR-LIGHT: #0476D0;
+
+    /*MARGIN AND PADDING*/
+    --MARGIN: 1rem;
+    --MARGIN-SMALL: 0.5rem;
+    --MARGIN-BIG: 2rem;
+    --PADDING: 1rem;
+    --PADDING-SMALL: 0.5rem;
+    --PADDING-BIG: 2rem;
+    --PADDING-VERY-BIG: 3rem;
+
+    /*BORDER*/
+    --BORDER: 1px solid #B4F5F0;
+
+}
+
+/* || GENERAL */
+
+html, body {
+    height: 100vh;
+}
+
+body {
+    background-color: var(--BG-COLOR-LIGHT);
+    color: var(--FONT-COLOR);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: var(--FF-TEXT)
+}
+
+/* || HEADER*/
+
+.header{
+    background-color: var(--BG-COLOR-DARK);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+    border-bottom: var(--BORDER);
+}
+
+.header__h1  {
+    padding-top: var(--PADDING-SMALL);
+    font-size: var(--FS-VERY-LARGE);
+    text-shadow: 3px 3px 3px var(--BG-COLOR-LIGHT);
+    color: var(--FONT-COLOR-ADDITIONAL);
+    font-family: var(--FF-CLICK);
+    letter-spacing: 0.2rem;
+}
+
+.header__p {
+    padding-bottom: var(--PADDING-SMALL);
+    font-size: var(--FS);
+}
+
+.points_span {
+    color: var(--FONT-COLOR-ADDITIONAL);
+    font-weight: bold;
+    text-shadow: 2px 1px 3px var(--BG-COLOR-LIGHT);
+    font-size: var(--FS-LARGE);
+    font-family: var(--FF-CLICK);
+    letter-spacing: 0.2rem;
+}
+
+/* || MAIN */
+
+.main {
+    background: radial-gradient(var(--BG-COLOR-LIGHT), var(--BG-COLOR-DARK));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.btn_click {
+    background-color: var(--BG-COLOR-DARK);
+    color: var(--FONT-COLOR);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 1px solid var(--FONT-COLOR);
+    box-shadow: 0px 0px 50px var(--FONT-COLOR);
+    font-family: var(--FF-CLICK);
+    transition: all 0.05s;
+    width: 10vw;
+    height: 5vw;
+    min-width: 60px;
+    min-height: 30px;
+}
+
+.btn_click:hover {
+    cursor: pointer;
+}
+
+.btn_click:active {
+    transform: scale(0.85);
+    transition: all 0.05s;
+}
+
+/* || MEDIA QUERIES */
+
+
+/* MOBILE DEVICE LANDSCAPE  */
+@media screen and (max-height: 425px) and (min-aspect-ratio: 7/4) {
+
+    .header{
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: baseline;
+    }
+
+    .header__h1 {
+        font-size: var(--FS-LARGE);
+        padding: 0 var(--PADDING-SMALL);
+    }
+}
