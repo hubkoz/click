@@ -7,7 +7,8 @@ btn.style.position = 'absolute'
 let isAlive = true
 let timer
 let timerDisplay
-let count = 100
+let timeDecrease = 1000
+let count = timeDecrease/10
 
 function randomNum(parentWidth, parentHeight, btnWidth, btnHeight) {
     return {
@@ -18,12 +19,15 @@ function randomNum(parentWidth, parentHeight, btnWidth, btnHeight) {
 
 btn.addEventListener("click", () => {
 
+    // decrease time for click
+    timeDecrease -= 10
+    count = timeDecrease/10
+
     if (isAlive) {
 
         // clear previous timers
         clearTimeout(timer)
         clearInterval(timerDisplay)
-        count = 100
 
         // add points
         points += 1
@@ -37,7 +41,7 @@ btn.addEventListener("click", () => {
         // set new timeout
         timer = setTimeout(()=> {
             isAlive = false
-        }, 1000)
+        }, timeDecrease)
 
         // display time left
         timerDisplay = setInterval(()=> {
@@ -46,8 +50,7 @@ btn.addEventListener("click", () => {
             if (count < 0) {
                 clearInterval(timerDisplay)
             }
-        }, 10)
-
+        }, count/10)
     } else {
         btn.disabled = true
         btn.innerText = "END"
