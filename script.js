@@ -29,6 +29,8 @@ const themeBlue = {
     bgLight: "#0476D0"
 }
 
+//test
+
 function changeTheme(theme) {
     cssVariables.style.setProperty(colors.font, theme.font)
     cssVariables.style.setProperty(colors.fontAdditional, theme.fontAdditional)
@@ -81,7 +83,6 @@ btn.addEventListener("click", () => {
         btn.disabled = true
         btn.innerText = "END"
     }
-
     if (points % 2 === 0) {
         changeTheme(themeBlue)
     } else {
