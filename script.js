@@ -1,7 +1,7 @@
 const btn = document.getElementById("btn-click")
-const pointsSpan = document.getElementById("points-span")
+const clicksSpan = document.getElementById("clicks-span")
 const offset = 5
-let points = 0
+let clicks = 0
 const parentBtn = btn.parentElement
 btn.style.position = 'absolute'
 let isAlive = true
@@ -16,20 +16,50 @@ const colors = {
     bgDark: "--BG-COLOR-DARK",
     bgLight: "--BG-COLOR-LIGHT"
 }
-const themeRed = {
-    font: "#F7D6D0",
-    fontAdditional: "#F2C5E0",
-    bgDark: "#610b0b",
-    bgLight: "#FB6090"
-}
-const themeBlue = {
-    font: "#B4F5F0",
-    fontAdditional: "#2CEEF0",
-    bgDark: "#041F60",
-    bgLight: "#0476D0"
+const themeMap = {
+    themeRed: {
+        font: "#F7D6D0",
+        fontAdditional: "#F2C5E0",
+        bgDark: "#610b0b",
+        bgLight: "#FB6090"},
+    themeBlue: {
+        font: "#B4F5F0",
+        fontAdditional: "#2CEEF0",
+        bgDark: "#041F60",
+        bgLight: "#0476D0"},
+    themeYellow: {
+        font: "#fdff9d",
+        fontAdditional: "#eeff00",
+        bgDark: "#423800",
+        bgLight: "#bbb817"},
+    themePurple: {
+        font: "#ad8eeb",
+        fontAdditional: "#a72aeb",
+        bgDark: "#161329",
+        bgLight: "#5a008a"},
+    themeBlack: {
+        font: "whitesmoke",
+        fontAdditional: "white",
+        bgDark: "black",
+        bgLight: "#333"},
+    themeOrange: {
+        font: "#ffd8c5",
+        fontAdditional: "#FEEBA0",
+        bgDark: "#7c200c",
+        bgLight: "#FF8D80"},
+    themeGreen: {
+        font: "#12eb98",
+        fontAdditional: "#14E114",
+        bgDark: "#09323B",
+        bgLight: "#117660"}
 }
 
-//test
+function getRandomTheme() {
+    const themeKeys = Object.keys(themeMap)
+    const randomIndex = Math.floor(Math.random() * themeKeys.length)
+    const randomKey = themeKeys[randomIndex]
+    return themeMap[randomKey]
+}
 
 function changeTheme(theme) {
     cssVariables.style.setProperty(colors.font, theme.font)
@@ -45,6 +75,8 @@ function randomNum(parentWidth, parentHeight, btnWidth, btnHeight) {
     }
 }
 
+changeTheme(getRandomTheme())
+
 btn.addEventListener("click", () => {
 
     // decrease time for click
@@ -57,9 +89,9 @@ btn.addEventListener("click", () => {
         clearTimeout(timer)
         clearInterval(timerDisplay)
 
-        // add points
-        points += 1
-        pointsSpan.innerHTML = `${points}`
+        // add clicks
+        clicks += 1
+        clicksSpan.innerHTML = `${clicks}`
 
         // change position
         const { x, y } = randomNum(parentBtn.offsetWidth, parentBtn.offsetHeight, btn.offsetWidth, btn.offsetHeight)
@@ -83,9 +115,7 @@ btn.addEventListener("click", () => {
         btn.disabled = true
         btn.innerText = "END"
     }
-    if (points % 2 === 0) {
-        changeTheme(themeBlue)
-    } else {
-        changeTheme(themeRed)
+    if (clicks % 5 === 0) {
+        changeTheme(getRandomTheme())
     }
 })
