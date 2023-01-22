@@ -1,7 +1,12 @@
 const btn = document.getElementById("btn-click")
 const clicksSpan = document.getElementById("clicks-span")
-const offset = 5
+const pointsSpan = document.getElementById("points-span")
+const pointsMultiplierSpan = document.getElementById("points-multiplier")
+const click = document.getElementById("click")
 let clicks = 0
+let points = 0
+let pointsMultiplier = 1
+const offset = 5
 const parentBtn = btn.parentElement
 btn.style.position = 'absolute'
 let isAlive = true
@@ -10,6 +15,7 @@ let timerDisplay
 let timeDecrease = 1000
 let count = timeDecrease/10
 const cssVariables = document.querySelector(':root')
+const cssPHeaderContainer = document.querySelector('.header__p_container')
 const colors = {
     font: "--FONT-COLOR",
     fontAdditional: "--FONT-COLOR-ADDITIONAL",
@@ -75,13 +81,21 @@ function randomNum(parentWidth, parentHeight, btnWidth, btnHeight) {
     }
 }
 
-changeTheme(getRandomTheme())
+// random theme onload
+document.addEventListener("DOMContentLoaded", changeTheme(getRandomTheme()))
 
 btn.addEventListener("click", () => {
+
+    //display stats
+    cssPHeaderContainer.style.setProperty("visibility", "visible")
 
     // decrease time for click
     timeDecrease -= 10
     count = timeDecrease/10
+
+    // remove previous animations
+    pointsMultiplierSpan.classList.remove("animate__flash")
+    clicksSpan.classList.remove("animate__flash")
 
     if (isAlive) {
 
@@ -90,8 +104,12 @@ btn.addEventListener("click", () => {
         clearInterval(timerDisplay)
 
         // add clicks
-        clicks += 1
+        clicks++
         clicksSpan.innerHTML = `${clicks}`
+
+        //add points
+        points = 1 * pointsMultiplier + points
+        pointsSpan.innerHTML = `${points}`
 
         // change position
         const { x, y } = randomNum(parentBtn.offsetWidth, parentBtn.offsetHeight, btn.offsetWidth, btn.offsetHeight)
@@ -111,11 +129,29 @@ btn.addEventListener("click", () => {
                 clearInterval(timerDisplay)
             }
         }, count/10)
-    } else {
-        btn.disabled = true
-        btn.innerText = "END"
+
+        if (clicks % 5 === 0) {
+            changeTheme(getRandomTheme())
+            pointsMultiplier++
+            pointsMultiplierSpan.classList.add("animate__flash")
+        }
+        if (clicks % 10 === 0){
+            clicksSpan.classList.add("animate__flash")
+        }
+        pointsMultiplierSpan.innerHTML = ` x${pointsMultiplier}`
+        return;
     }
-    if (clicks % 5 === 0) {
-        changeTheme(getRandomTheme())
-    }
+
+    // game over
+    btn.disabled = true
+    btn.innerText = "END"
+    pointsMultiplierSpan.innerHTML = ``
+    setTimeout(()=> {
+        btn.innerHTML = "RESET"
+        btn.classList.add("animate__heartBeat")
+        btn.disabled = false
+        btn.addEventListener("click",()=> {
+            location.reload()
+        })
+    }, 2000)
 })

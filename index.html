@@ -5,14 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="img/pointer.png" />
     <title>Clicks</title>
 </head>
 <body class="body">
     <header class="header">
-        <h1 class="header__h1">Click</h1>
-        <p class="header__p">Clicks: <span id="clicks-span" class="points_span"></span></p>
-        <div id="time-left-span"></div>
+        <h1 class="header__h1" id="click">Click</h1>
+        <section class="header__p_container">
+            <p class="header__p nowrap">Clicks: <span id="clicks-span" class="clicks_span"></span></p>
+            <p class="header__p nowrap">Points: <span id="points-span" class="clicks_span"></span></p>
+            <span id="points-multiplier" class="clicks_span points_multiplier"></span>
+        </section>
     </header>
     <main class="main">
         <button tabindex="-1" class="btn_click" id="btn-click">
