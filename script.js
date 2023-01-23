@@ -1,6 +1,8 @@
 const btn = document.getElementById("btn-click")
+const btnExtra = document.getElementById("btn-extra")
 const clicksSpan = document.getElementById("clicks-span")
 const pointsSpan = document.getElementById("points-span")
+const btnExtraSpan = document.getElementById("btn-extra-span")
 const pointsMultiplierSpan = document.getElementById("points-multiplier")
 const click = document.getElementById("click")
 let clicks = 0
@@ -9,6 +11,7 @@ let pointsMultiplier = 1
 const offset = 5
 const parentBtn = btn.parentElement
 btn.style.position = 'absolute'
+btnExtra.style.position = 'absolute'
 let isAlive = true
 let timer
 let timerDisplay
@@ -16,6 +19,7 @@ let timeDecrease = 1000
 let count = timeDecrease/10
 const cssVariables = document.querySelector(':root')
 const cssPHeaderContainer = document.querySelector('.header__p_container')
+const cssBtnExtra = document.querySelector('.btn_extra')
 const colors = {
     font: "--FONT-COLOR",
     fontAdditional: "--FONT-COLOR-ADDITIONAL",
@@ -112,7 +116,7 @@ btn.addEventListener("click", () => {
         pointsSpan.innerHTML = `${points}`
 
         // change position
-        const { x, y } = randomNum(parentBtn.offsetWidth, parentBtn.offsetHeight, btn.offsetWidth, btn.offsetHeight)
+        let { x, y } = randomNum(parentBtn.offsetWidth, parentBtn.offsetHeight, btn.offsetWidth, btn.offsetHeight)
         btn.style.right = `${x}px`
         btn.style.bottom = `${y}px`
 
@@ -130,13 +134,24 @@ btn.addEventListener("click", () => {
             }
         }, count/10)
 
-        if (clicks % 5 === 0) {
+        if (clicks % 10 === 0){
+            const extra = 10 * pointsMultiplier
             changeTheme(getRandomTheme())
             pointsMultiplier++
             pointsMultiplierSpan.classList.add("animate__flash")
-        }
-        if (clicks % 10 === 0){
-            clicksSpan.classList.add("animate__flash")
+            x, y = randomNum(parentBtn.offsetWidth, parentBtn.offsetHeight, btnExtra.offsetWidth, btnExtra.offsetHeight)
+                btnExtra.style.right = `${x}px`
+                btnExtra.style.bottom = `${y}px`
+            btnExtraSpan.innerHTML = `+ ${extra}`
+            cssBtnExtra.style.setProperty("visibility", "visible")
+            setTimeout(()=> {
+                cssBtnExtra.style.setProperty("visibility", "hidden")
+            }, timeDecrease)
+            btnExtra.addEventListener("click", ()=> {
+                points += extra
+                pointsSpan.innerHTML = `${points}`
+                cssBtnExtra.style.setProperty("visibility", "hidden")
+            })
         }
         pointsMultiplierSpan.innerHTML = ` x${pointsMultiplier}`
         return;
@@ -153,5 +168,5 @@ btn.addEventListener("click", () => {
         btn.addEventListener("click",()=> {
             location.reload()
         })
-    }, 2000)
+    }, 1000)
 })
