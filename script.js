@@ -1,7 +1,9 @@
 const btn = document.getElementById("btn-click")
 const btnExtra = document.getElementById("btn-extra")
 const clicksSpan = document.getElementById("clicks-span")
+const clicksP = document.getElementById("clicks-p")
 const pointsSpan = document.getElementById("points-span")
+const pointsP = document.getElementById("points-p")
 const btnExtraSpan = document.getElementById("btn-extra-span")
 const pointsMultiplierSpan = document.getElementById("points-multiplier")
 const click = document.getElementById("click")
@@ -97,10 +99,6 @@ btn.addEventListener("click", () => {
     timeDecrease -= 10
     count = timeDecrease/10
 
-    // remove previous animations
-    pointsMultiplierSpan.classList.remove("animate__flash")
-    clicksSpan.classList.remove("animate__flash")
-
     if (isAlive) {
 
         // clear previous timers
@@ -109,11 +107,19 @@ btn.addEventListener("click", () => {
 
         // add clicks
         clicks++
+        clicksP.classList.add("animate__pulse")
         clicksSpan.innerHTML = `${clicks}`
+        setTimeout(()=> {
+            clicksP.classList.remove("animate__pulse")
+        }, 150)
 
         //add points
         points = 1 * pointsMultiplier + points
+        pointsP.classList.add("animate__pulse")
         pointsSpan.innerHTML = `${points}`
+        setTimeout(()=> {
+            pointsP.classList.remove("animate__pulse")
+        }, 150)
 
         // change position
         let { x, y } = randomNum(parentBtn.offsetWidth, parentBtn.offsetHeight, btn.offsetWidth, btn.offsetHeight)
@@ -135,22 +141,32 @@ btn.addEventListener("click", () => {
         }, count/10)
 
         if (clicks % 10 === 0){
+            btnExtra.classList.remove("animate__fadeOut")
             const extra = 10 * pointsMultiplier
             changeTheme(getRandomTheme())
             pointsMultiplier++
             pointsMultiplierSpan.classList.add("animate__flash")
+            setTimeout(()=> {
+                pointsMultiplierSpan.classList.remove("animate__flash")
+            }, 500)
             x, y = randomNum(parentBtn.offsetWidth, parentBtn.offsetHeight, btnExtra.offsetWidth, btnExtra.offsetHeight)
                 btnExtra.style.right = `${x}px`
                 btnExtra.style.bottom = `${y}px`
             btnExtraSpan.innerHTML = `+ ${extra}`
             cssBtnExtra.style.setProperty("visibility", "visible")
             setTimeout(()=> {
+                btnExtra.classList.add("animate__fadeOut")
+            }, timeDecrease - 150)
+            setTimeout(()=> {
                 cssBtnExtra.style.setProperty("visibility", "hidden")
             }, timeDecrease)
             btnExtra.addEventListener("click", ()=> {
                 points += extra
                 pointsSpan.innerHTML = `${points}`
-                cssBtnExtra.style.setProperty("visibility", "hidden")
+                btnExtra.classList.add("animate__fadeOut")
+                setTimeout(()=> {
+                    cssBtnExtra.style.setProperty("visibility", "hidden")
+                }, 150)
             })
         }
         pointsMultiplierSpan.innerHTML = ` x${pointsMultiplier}`
@@ -163,9 +179,10 @@ btn.addEventListener("click", () => {
     pointsMultiplierSpan.innerHTML = ``
     setTimeout(()=> {
         btn.innerHTML = "RESET"
-        btn.classList.add("animate__heartBeat")
+        btn.classList.add("pulse_infinite")
         btn.disabled = false
         btn.addEventListener("click",()=> {
+            btn.innerHTML = "RESET"
             location.reload()
         })
     }, 1000)

@@ -62,9 +62,33 @@ body {
 }
 
 /* || ANIMATIONS */
+  
+@keyframes pulse_infinite {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.8);
+    }
+    100% {
+      transform: scale(1);
+    }
+}
+
+.pulse_infinite {
+    animation: pulse_infinite 1s ease-in-out infinite;
+}
 
 .animate__flash {
     animation: animate__flash 0.5s;
+}
+
+.animate__fadeOut {
+    animation: animate__fadeOut 0.15s;
+}
+
+.animate__pulse {
+    animation: animate__pulse 0.15s;
 }
 
 /* || HEADER*/
@@ -97,6 +121,8 @@ body {
     width: 100%;
     visibility: hidden;
     padding: 0 var(--PADDING-SMALL);
+    width: auto;
+    height: auto;
 }
 
 .header__p {
@@ -111,6 +137,8 @@ body {
     font-size: var(--FS-LARGE);
     font-family: var(--FF-CLICK);
     letter-spacing: 0.2rem;
+    width: auto;
+    height: auto;
 }
 
 /* || MAIN */
