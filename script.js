@@ -66,6 +66,10 @@ const themeMap = {
         bgLight: "#117660"}
 }
 
+window.onload = function() {
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
 function getRandomTheme() {
     const themeKeys = Object.keys(themeMap)
     const randomIndex = Math.floor(Math.random() * themeKeys.length)
